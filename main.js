@@ -65,6 +65,36 @@ function renderList() {
             taskValue.splice(index, 1)
             renderList()
         })
+
+        const popup = document.querySelector("#popup")
+        const closePopup = document.querySelector("#closePopup")
+        const popupInputField = document.querySelector("#new-task-input")
+
+        htmlButtonEdit.addEventListener("click", () => {
+            popup.classList.remove("hidden")
+        })
+
+        closePopup.addEventListener("click", () => {
+            popup.classList.add("hidden")
+        })
+
+        popupInputField.addEventListener("keypress", (e) => {
+            if (e.key === 'Enter') {
+                updateTask()
+                popup.classList.add("hidden")
+            }
+        })
+
+        function updateTask() {
+            let valueInput = popupInputField.value.trim()
+            if (valueInput !== "") {
+                taskValue[index] = valueInput
+                renderList()
+                popupInputField.value = ""
+            } else {
+                alert("Tolong Masukan Text!")
+            }
+        }
     });
 
 }
